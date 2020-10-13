@@ -23,5 +23,5 @@ class MemberForm(forms.ModelForm):
         fields = ('full_name', 'relation', 'member_gender', 'age', 'birthdate')
         widgets = {
         	'member_gender' : forms.Select(choices=GENDER),
-        	'birthdate' : forms.DateInput(attrs={'type': 'date'})
+        	'birthdate' : forms.DateInput(attrs={'type': 'date'}),
         }

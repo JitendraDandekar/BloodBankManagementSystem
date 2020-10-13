@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
     <link rel="stylesheet" href="{% static 'css/about.css' %}">
     <link rel="stylesheet" href="{% static 'css/accounts.css' %}">
+      <link rel="stylesheet" href="{% static 'css/availibility.css' %}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
@@ -51,10 +52,10 @@
                   </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                       <a class="dropdown-item" href="#">Care Centres</a>
-                      <a class="dropdown-item" href="#">Camp Schedule</a>
+                      <a class="dropdown-item" href="{% url 'camp' %}">Camp Schedule</a>
                       <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#">Donation Request</a>
-                        <a class="dropdown-item" href="#">Blood Availability</a>
+                        <a class="dropdown-item" href="{% url 'availibility' %}">Blood Availability</a>
                     </div>
                 </li>
               </ul>
@@ -106,7 +107,7 @@
                         <div class="card-body">
                           <h5 class="card-title">Blood Availability</h5>
                           <p class="card-text">Get status of available blood stock in blood bank</p>
-                          <a href="#" class="btn btn-primary">Check Availability</a>
+                          <a href="{% url 'availibility' %}" class="btn btn-primary">Check Availability</a>
                         </div>
                     </div>
                 </div>
@@ -116,7 +117,7 @@
                         <div class="card-body">
                           <h5 class="card-title">Camp Schedule</h5>
                           <p class="card-text">View and register for blood donation Camps</p>
-                          <a href="#" class="btn btn-primary">Register Now</a>
+                          <a href="{% url 'camp' %}" class="btn btn-primary">Register Now</a>
                         </div>
                     </div>
                 </div>

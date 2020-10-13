@@ -41,7 +41,8 @@ INSTALLED_APPS = [
 
     #MyApps
     'home.apps.HomeConfig',
-    'accounts.apps.AccountsConfig'
+    'accounts.apps.AccountsConfig',
+    'availibility.apps.AvailibilityConfig',
 ]
 
 MIDDLEWARE = [

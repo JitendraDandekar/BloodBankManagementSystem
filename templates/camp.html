@@ -1,0 +1,37 @@
+{% extends 'index.html' %}
+{% block title %}Camps{% endblock %}
+{% block content %}
+<div class="camp container">
+	<div class="row">
+	  	{% for camp in camps %}
+	  	{% if camp.confirm is True %}
+	  <div class="col-sm-4">
+	    <div class="card text-right">
+	      <div class="card-body">
+	        <h5 class="card-title">{{ camp.title }}</h5>
+	        <p class="card-text">{{ camp.location }}</p>
+	        <p class="card-text">{{ camp.date }}</p>
+	        <h6 class="card-text">By - {{ camp.organizer }}</h6>
+	        <p class="card-text">Contact No.: {{ camp.contact_no }}</p>
+	      </div>
+	    </div>
+	  </div>
+	  	{% endif %}
+	  	{% endfor %}
+	</div>
+	<center>
+	<div>
+	  	<form action="{% url 'camp' %}" method="POST">
+	  		<h3>Fill Form For Blood Camp</h3>
+	  		 {% csrf_token %} 
+	  		 <input class="form-control" type="text" placeholder="Title" name="title"><br>
+	  		 <input class="form-control" type="text" placeholder="Location" name="location"><br>
+	  		 <input class="form-control" type="text" placeholder="Organizer" name="organizer"><br>
+	  		 <input class="form-control" type="number" placeholder="Contact" name="contact_no"><br>
+	  		 <input class="form-control" type="date" placeholder="Date" name="date"><br>
+	  		<button type="submit" class="btn btn-primary" >Submit</button>
+	  	</form>
+	</div>
+	</center>
+</div>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'index.html' %}
+{% block title %}Availibility{% endblock %}
+{% block content %}
+<div class="availibility container-fluid">
+	<center><h3>Blood Availability</h3></center>
+	<div class="row">
+		{% for avail in availibility %}
+		<div class="col-sm-3">
+			<div class="card" style="width: 18rem;">
+			  <div class="card-body">
+			    <h5 class="card-title" style="color: darkred">{{ avail.location }}</h5>
+			    <hr>
+			    <p class="card-text">Blood A+/A- : {{avail.blood_a}} %</p>
+			    <p class="card-text">Blood B+/B- : {{avail.blood_b}} %</p>
+			    <p class="card-text">Blood AB+/AB- : {{avail.blood_ab}} %</p>
+			    <p class="card-text">Blood O+/O- : {{avail.blood_o}} %</p>
+			    <p class="card-text">Plasma : {{avail.plasma}} %</p>
+			    <p class="card-text">Platelet : {{avail.platelet}} %</p>
+			  </div>
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+</div>
+{% endblock %}

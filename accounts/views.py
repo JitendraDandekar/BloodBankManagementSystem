@@ -64,13 +64,11 @@ def profile(request):
     return render(request, 'profile.html', {'members': members})
 
 def editProfile(request):
-    extra = 4
-    MemberFormSet = inlineformset_factory(Profile, Member, form=MemberForm, extra=extra, max_num=10)
+    MemberFormSet = inlineformset_factory(Profile, Member, form=MemberForm, extra=3, max_num=10)
     ProfileFormSet = inlineformset_factory(User, Profile, form=ProfileForm, max_num=1)
     profile = request.user.profile
     if request.method == 'POST':
         user_form = UserForm(request.POST, instance=request.user)
-        #user_profile_form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
         profile_formset = ProfileFormSet(request.POST, request.FILES, instance=request.user)
         member_formset = MemberFormSet(request.POST, instance=profile)
         if user_form.is_valid() and profile_formset.is_valid() and member_formset.is_valid():

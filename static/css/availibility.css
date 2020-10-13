@@ -1,0 +1,39 @@
+
+.availibility{
+	padding: 20px;
+}
+
+h3{
+	color: white;
+}
+
+.camp{
+	padding: 50px;
+}
+
+.availibility .card:hover{
+	background-color: tomato;
+	color: white;
+}
+
+.camp .card{
+	height: 200px;
+	width: 350px;
+	border-radius: 0px;
+	font-size: 12px;
+}
+
+
+.camp .card:hover{
+	background-color: tomato;
+	color: white;
+}
+
+.camp form{
+	margin-top: 40px; 
+	background-color: tomato;
+	color: white;
+	width: 50%;
+	padding: 20px;
+	border-radius: 5px;
+}
