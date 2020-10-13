@@ -1,0 +1,73 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %}Profile{% endblock %}
+{% block content %}
+<div class="profile container-fluid">
+    <div class="profile-details">
+        <div class="container" style="padding-top: 30px; padding-bottom:30px">
+            <div class="row">
+                <div class="col"><h4><u>Personal Details</u></h4></div>
+            </div>
+            <div class="row">
+                <div class="col-2">
+                    <img src="{{user.profile.profile_pic.url}}" alt="{{user.first_name}}" height="200px" width="150px">
+                </div>
+                <div class="vertical"></div>
+                <div class="col-9">
+                    <div class="row">
+                        <div class="col-sm-3">First Name :</div>
+                        <div class="col-sm-3">{{user.first_name}}</div>
+                        <div class="col-sm-3">Last Name :</div>
+                        <div class="col-sm-3">{{user.last_name}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">Email ID :</div>
+                        <div class="col-sm-3">{{user.email}}</div>
+                        <div class="col-sm-3">Phone No. :</div>
+                        <div class="col-sm-3">{{user.profile.phone}}</div>
+                    </div>
+                        <div class="row">
+                        <div class="col-sm-3">Birth Date :</div>
+                        <div class="col-sm-3">{{user.profile.dob}}</div>
+                        <div class="col-sm-3">Gender :</div>
+                        <div class="col-sm-3">{{user.profile.gender}}</div>
+                    </div>    
+                </div>
+            </div>
+            <hr>
+            <h4><u>Addresses</u></h4>
+            <div class="row">
+                <div class="col-3">Permenant Address :</div>
+                <div class="col-8">{{user.profile.per_add}}</div>
+            </div>
+            <div class="row">
+                <div class="col-3">Temporary Address :</div>
+                <div class="col-8">{{user.profile.temp_add}}</div>
+            </div>
+            <hr>
+            <h4><u>Family Members</u></h4>
+            <center>
+                <div class="member-details table">
+                    <div class="head row">
+                        <div class="col-lg-4">Full Name</div>
+                        <div class="col-2">Relation</div>
+                        <div class="col">Gender</div>
+                        <div class="col">Age</div>
+                        <div class="col">D.O.B</div>
+                    </div>
+                    {% for member in members %}
+                    <div class="body row">
+                        <div class="col-lg-4">{{member.full_name}}</div>
+                        <div class="col-2">{{member.relation}}</div>
+                        <div class="col">{{member.member_gender}}</div>
+                        <div class="col">{{member.age}}</div>
+                        <div class="col">{{member.birthdate}}</div>
+                    </div>
+                    {% endfor %}
+                    <a class="btn btn-primary" href="{% url 'editprofile' %}" role="button" style="float: right; margin-top:10px">Edit Profile</a>
+                </div>
+            </center>
+        </div>
+    </div>
+</div>
+{% endblock %}

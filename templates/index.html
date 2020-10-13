@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BloodBank | {% block title %}Home{% endblock %}</title>
+
+    <!--LOGO-->
+    <link rel="shortcut icon" href="{% static 'images/logo.png' %}" type="image/x-icon">
+
+    <!--CSS-->
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/about.css' %}">
+    <link rel="stylesheet" href="{% static 'css/accounts.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <style>
+        .main-container{
+            background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)),url("{% static 'images/background-image.jpg' %}");
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    </style>
+</head>
+<body>
+    {% for msg in messages %}
+    <script>alert('{{msg}}');</script>
+    {% endfor %}
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="{% url 'index' %}"><img src="{% static 'images/logo.png' %}" alt="logo" height="30px" width="30px"> BloodBank</a>
+            
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                  <a class="nav-link" href="{% url 'index' %}">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'about' %}">About Us</a>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Services
+                  </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item" href="#">Care Centres</a>
+                      <a class="dropdown-item" href="#">Camp Schedule</a>
+                      <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Donation Request</a>
+                        <a class="dropdown-item" href="#">Blood Availability</a>
+                    </div>
+                </li>
+              </ul>
+              <div class="nav-item dropdown navbar-nav">
+                {% if user.is_authenticated %}
+                <a class="login nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Hi, {{user.get_username}}
+                  </a>
+                  <div class="dropdown-menu  dropdown-menu-right" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#">My Donations</a>
+                    <a class="dropdown-item" href="{% url 'profile' %}">View Profile</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="{% url 'logout' %}"><center><button type="button" class="btn btn-primary btn-sm">Logout</button></center></a>
+                  </div>
+                {% else %}
+                <a class="login" href="{% url 'login' %}">Login</a>
+                {% endif %}
+              </div>
+            </div>
+        </nav>
+    </header>
+    <div class="main-container">
+        {% block content %}
+        <div id="carouselExampleInterval" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+              {% for i in slide %}
+              <div class="carousel-item active" data-interval="2000">
+                <img src="{{i.img.url}}" class="d-block w-100" alt="..." height="400px">
+              </div>
+              {% endfor %}
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleInterval" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleInterval" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+        </div>
+        <div class="container-fluid">
+            <h1 style="padding-top:10px;">Services</h1>
+            <p style="color: white; font-weight:bolder;">"A single pint can save three lives, a single gesture can create a million smiles"</p>
+            <center>
+              <div class="row">
+                <div class="col-sm-3">
+                    <div class="card" style="width: 18rem;">
+                        <img src="{% static 'images/blood-donation.png' %}" class="card-image" alt="availability">
+                        <div class="card-body">
+                          <h5 class="card-title">Blood Availability</h5>
+                          <p class="card-text">Get status of available blood stock in blood bank</p>
+                          <a href="#" class="btn btn-primary">Check Availability</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="card" style="width: 18rem;">
+                        <img src="{% static 'images/blood-time.png' %}" class="card-image" alt="availability">
+                        <div class="card-body">
+                          <h5 class="card-title">Camp Schedule</h5>
+                          <p class="card-text">View and register for blood donation Camps</p>
+                          <a href="#" class="btn btn-primary">Register Now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="card" style="width: 18rem;">
+                        <img src="{% static 'images/location.png' %}" class="card-image" alt="availability">
+                        <div class="card-body">
+                          <h5 class="card-title">NearBy Blood Banks</h5>
+                          <p class="card-text">Get contact and navigation details of blood banks</p>
+                          <a href="#" class="btn btn-primary">Donate Now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="card" style="width: 18rem;">
+                        <img src="{% static 'images/profile.png' %}" class="card-image" alt="availability">
+                        <div class="card-body">
+                          <h5 class="card-title">My Donations</h5>
+                          <p class="card-text">Register, track and maintain your profile</p>
+                          {% if user.is_authenticated %}
+                          <a href="{% url 'profile' %}" class="btn btn-primary">View Profile</a>
+                          {% else %}
+                          <a href="{% url 'login' %}" class="btn btn-primary">Start Now</a>
+                          {% endif %}
+                        </div>
+                    </div>
+                </div>
+              </div>
+            </center>
+            <hr>
+            <h1>Type Of Donation</h1>
+            <p style="color: white; font-weight:bolder;">The human body contains five liters of blood, which is made of several useful components i.e. <strong>Whole blood</strong>, <strong>Platelet</strong>, and <strong>Plasma</strong>.<br>
+                Each type of component has several medical uses and can be used for different medical treatments. your blood donation determines the best donation for you to make.<br>
+                For <strong>plasma</strong> and <strong>platelet</strong> donation you must have donated whole blood in past two years.</p>
+
+            <div class="info-tab">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                      <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Blood</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Plasma</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Platelet</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <div class="row">
+                            <div class="col">
+                                <b>What is it?</b>
+                                <p>Blood Collected straight from the donor after its donation usually separated into red blood cells, platelets, and plasma.</p>
+                                <b>Who can donate?</b>
+                                <p>You need to be 18-65 years old, weigh 45kg or more and be fit and healthy.</p>
+                            </div>
+                            <div class="vertical"></div>
+                            <div class="col">
+                                <b>User For?</b>
+                                <p>Stomach disease, kidney disease, childbirth, operations, blood loss, trauma, cancer, blood diseases, haemophilia, anemia, heart disease.</p>
+                                <b>Lasts For?</b>
+                                <p>Red cells can be stored for 42 days.</p>
+                            </div>
+                            <div class="vertical"></div>
+                            <div class="col">
+                                <b>How long does it take?</b>
+                                <p>15 minutes to donate.</p>
+                                <b>How often can I donate?</b>
+                                <p>Every 12 weeks</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        <div class="row">
+                            <div class="col">
+                                <b>What is it?</b>
+                                <p>The straw-coloured liquid in which red blood cells, white blood cells, and platelets float in.Contains special nutrients which can be used to create 18 different type of medical products to treat many different medical conditions.</p>
+                                <b>Who can donate?</b>
+                                <p>You need to be 18-70 (men) or 20-70 (women) years old, weigh 50kg or more and must have given successful whole blood donation in last two years. </p>
+                            </div>
+                            <div class="vertical"></div>
+                            <div class="col">
+                                <b>User For?</b>
+                                <p>Immune system conditions, pregnancy (including anti-D injections), bleeding, shock, burns, muscle and nerve conditions, haemophilia, immunisations.</p>
+                                <b>Lasts For?</b>
+                                <p>Plasma can last up to one year when frozen.</p>
+                            </div>
+                            <div class="vertical"></div>
+                            <div class="col">
+                                <b>How does it work?</b>
+                                <p>We collect your blood, keep plasma and return rest to you by apheresis donation.</p>
+                                <b>How long does it take?</b>
+                                <p>15 minutes to donate.</p>
+                                <b>How often can I donate?</b>
+                                <p>Every 2-3 weeks.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                        <div class="row">
+                            <div class="col">
+                                <b>What is it?</b>
+                                <p>The tiny 'plates' in blood that wedge together to help to clot and reduce bleeding. Always in high demand, Vital for people with low platelet count, like malaria and cancer patients.</p>
+                                <b>Who can donate?</b>
+                                <p>You need to be 18-70 years old (men), weigh 50kg or more and have given a successful plasma donation in the past 12 months</p>
+                            </div>
+                            <div class="vertical"></div>
+                            <div class="col">
+                                <b>User For?</b>
+                                <p>Cancer, blood diseases, haemophilia, anaemia, heart disease, stomach disease, kidney disease, childbirth, operations, blood loss, trauma, burns.</p>
+                                <b>Lasts For?</b>
+                                <p>Just five days..</p>
+                            </div>
+                            <div class="vertical"></div>
+                            <div class="col">
+                                <b>How does it work?</b>
+                                <p>We collect your blood, keep platelet and return rest to you by apheresis donation.</p>
+                                <b>How long does it take?</b>
+                                <p>45 minutes to donate.</p>
+                                <b>How often can I donate?</b>
+                                <p>Every 2 weeks</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="container">
+                <table style="width: 100%;">
+                    <thead>
+                        <tr style="background-color: red;">
+                            <th colspan="3" style="color: white;">Compatible Blood Type Donors</th>
+                        </tr>
+                        <tr style="background-color:whitesmoke;">
+                            <th>Blood Type</th>
+                            <th>Donate Blood To</th>
+                            <th>Receive Blood From</th>
+                        </tr>
+                    </thead>
+                    <tbody style="text-align: left; background-color:whitesmoke;">
+                        <tr>
+                            <th>A+</th>
+                            <td>A+ AB+</td>
+                            <td>A+ A- O+ O-</td>
+                        </tr>
+                        <tr>
+                            <th>O+</th>
+                            <td>O+ A+ B+ AB+</td>
+                            <td>O+ O-</td>
+                        </tr>
+                        <tr>
+                            <th>B+</th>
+                            <td>B+ AB+</td>
+                            <td>B+ B- O+ O-</td>
+                        </tr>
+                        <tr>
+                            <th>AB+</th>
+                            <td>AB+</td>
+                            <td>Everyone</td>
+                        </tr>
+                        <tr>
+                            <th>A-</th>
+                            <td>A+ A- AB+ AB-</td>
+                            <td>A- O-</td>
+                        </tr>
+                        <tr>
+                            <th>O-</th>
+                            <td>Everyone</td>
+                            <td>O-</td>
+                        </tr>
+                        <tr>
+                            <th>B-</th>
+                            <td>B+ B- AB+ AB-</td>
+                            <td>B- O-</td>
+                        </tr>
+                        <tr>
+                            <th>AB-</th>
+                            <td>AB+ AB-</td>
+                            <td>AB- A- B- O-</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div style="padding: 20px;">
+                <button type="button" id="reg-btn" class="btn btn-danger btn-lg" onclick="window.location.href='{% url 'register' %}'">Register Now To Donate Blood</button>
+            </div>
+        </div>
+        {% endblock %}
+    </div>
+    <footer>
+        <h4><u>Donate Blood, Save Life</u></h4>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h5><b>BloodBank Pvt. Ltd.</b></h5>
+                    <p>“<i>You are not important because of how long you live, you are important because of how effective you live.</i>”<br>
+                        <span style="float: right;">-- <u><b>Myles Munroe</b></u></span></p>
+                    <br>
+                    <p>“<i>We make a living by what we get. We make a life by what we give.</i>”<br>
+                        <span style="float: right;">-- <u><b>Winston Churchill</b></u></span></p>
+                </div>
+                <div class="col">
+                    <h5><b>Contact Us</b></h5>
+                    <address><i class="fas fa-clinic-medical"></i> ABC, Mumbai<br>Maharashtra - 400001</address>
+                    <p><i class="fas fa-envelope"></i> info@bloodbank.co.in</p>
+                    <p><i class="fas fa-phone-alt"></i> +91 9987654321</p>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col"><p>&copy; 2020 BloodBank.co.in</p></div>
+            </div>
+        </div>
+    </footer>
+</body>
+<!-- JS, Popper.js, and jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function(){
+        var slide = document.getElementsByClassName("carousel-item");
+        var len = slide.length;
+        for (i=0;i<len;i++){
+            if (i>0){
+               slide[i].className = slide[i].className.replace(" active", "");
+            }
+        }
+    });
+</script>
+</html>

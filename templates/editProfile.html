@@ -1,0 +1,103 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %}Profile{% endblock %}
+{% block content %}
+<div class="profile container-fluid">
+    <div class="profile-details">
+        <div class="container" style="padding-top: 30px; padding-bottom:30px">
+          <form action="{% url 'editprofile' %}" method="POST" enctype="multipart/form-data">
+              {% csrf_token %}  
+            <div class="row">
+                <div class="col"><h4><u>Personal Details</u></h4></div>
+            </div>
+                    {{ profile.management_form }}
+                        {% for pr in profile %}
+                        {{ pr.id }}
+            <div class="personal-details row">
+                <div class="col-2">
+                    <img src="{{user.profile.profile_pic.url}}" alt="{{user.first_name}}" id="pic" height="200px" width="150px">
+                    <input type="file" name="profile_pic" id="profilePic" onchange="loadFile(event)" style="padding-top: 5px;">
+                </div>
+                <div class="vertical"></div>
+                <div class="col-9">
+                    <div class="row">
+                        <div class="col-sm-3">First Name :</div>
+                        <div class="col-sm-3"><input type="text" name="first_name" value="{{user.first_name}}" required></div>
+                        <div class="col-sm-3">Last Name :</div>
+                        <div class="col-sm-3"><input type="text" name="last_name" value="{{user.last_name}}" required></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">Email ID :</div>
+                        <div class="col-sm-3">{{user.email}}</div>
+                        <div class="col-sm-3">Phone No. :</div>
+                        <div class="col-sm-3">{{pr.phone}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">Birth Date :</div>
+                        <div class="col-sm-3">{{pr.dob}}</small></div>
+                        <div class="col-sm-3">Gender :</div>
+                        <div class="col-sm-3">{{user.profile.gender}}</div>
+                    </div>    
+                </div>
+            </div>
+            <hr>
+            <h4><u>Addresses</u></h4>
+            <div class="address">
+                <div class="row">
+                    <div class="col-3">Permenant Address :</div>
+                    <div class="col-8">{{pr.per_add}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-3">Temporary Address :</div>
+                    <div class="col-8">{{pr.temp_add}}</div>
+                </div>
+            </div>
+                    {% endfor %}
+            <hr>
+            <h4><u>Family Members</u></h4>
+            <center>
+                <table class="members-input table table-bordered table-hover">
+                    <thead>
+                      <tr>
+                        <th class="full-name col-lg-4">Full Name</th>
+                        <th class="relation col-2">Relation</th>
+                        <th class="gender col-2">Gender</th>
+                        <th class="age col-1">Age</th>
+                        <th class="dob col-2">D.O.B</th>
+                        <th class="col-sm-1">Delete</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        {{ members.management_form }}
+                        {% for member in members %}
+                      <tr>
+                        {{member.id}}
+                        <td class="full-name col-lg-4">{{member.full_name}}</td>
+                        <td class="relation col-2">{{member.relation}}</td>
+                        <td class="gender col-2 ">{{member.member_gender}}</td>
+                        <td class="age col-1">{{member.age}}</td>
+                        <td class="dob col-2">{{member.birthdate}}</td>
+                        <td class="col-sm-1">{{ member.DELETE }}</td>
+                      </tr>
+                        {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="7"><center><button type="submit" class="btn btn-secondary" style="padding-left: 20px;padding-right: 20px;" onclick="addRow()">Save</button></center></td>  
+                        </tr>
+                    </tfoot>
+                </table>                    
+                    <a href="{% url 'profile' %}" class="btn btn-primary" type="button" style="float: right;padding-left: 20px;padding-right: 20px;">Submit</a>
+                </div>
+            </center>
+          </form>
+        </div>
+    </div>
+</div>
+<script>
+    var loadFile = function(event){
+        var pics = document.getElementById("pic")
+        pics.src = URL.createObjectURL(event.target.files[0])
+    }
+</script>
+{% endblock %}

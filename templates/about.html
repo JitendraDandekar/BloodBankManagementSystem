@@ -1,0 +1,76 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %}About Us{% endblock %}
+{% block content %}
+<div class="about container">
+    <div class="about-service">
+        <h1><b>Blood Services</b></h1>
+        <p style="font-size: 20px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;We secure the nation’s blood supply by ensuring a safe and adequate blood supply for public and private hospitals.</p>
+        <h2 style="font-weight: bold;">Our objectives and goals:</h2>
+        <ul class="service-point">
+            <li>Provide a safe and efficient transfusion service which is based on voluntary blood donations.</li>
+            <li>Maintain the highest standards of care for patients and donors in all aspects of blood banking and transfusion medicine.</li>
+            <li>Use all resources available to enhance staff development to achieve quality and excellence in the services offered.</li>
+            <li>Uphold and promote the highest standards of practice of transfusion medicine.</li>
+            <li>Use all technology available to achieve the optimal quality of blood and blood products supplied for patient care at an affordable cost to the community.</li>
+        </ul>
+    </div>
+    <div class="media">
+      <img class="align-self-start mr-3" src="{% static 'images/about/media1.jpg' %}" alt="Generic placeholder image">
+      <div class="media-body">
+        <h5 class="mt-0">Transfusion medicine</h5>
+        <p>The Blood Services Group (BSG) provides advisory, patient management, training and research services in clinical transfusion medicine.</p>
+        <p>Singapore’s National Blood Programme aims to ensure that all patients in Singapore have access to a safe and sufficient blood supply when needed.</p>
+      </div>
+    </div>
+    <div class="media">
+      <img class="align-self-start mr-3" src="{% static 'images/about/media2.jpg' %}" alt="Generic placeholder image">
+      <div class="media-body">
+        <h5 class="mt-0">Blood donation</h5>
+        <p>Blood contains many life-saving components that can help to treat different illnesses and injuries. For many patients, blood donors are their lifeline.</p>
+        <p>The Blood Services Group (BSG) provides advisory, patient management, training and research services in clinical transfusion medicine.</p>
+      </div>
+    </div>
+    <div class="media">
+      <img class="align-self-start mr-3" src="{% static 'images/about/media3.png' %}" alt="Generic placeholder image">
+      <div class="media-body">
+        <h5 class="mt-0">National Blood Programme</h5>
+        <p>Singapore’s National Blood Programme aims to ensure that all patients in Singapore have access to a safe and sufficient blood supply when needed.</p>
+        <p>Blood contains many life-saving components that can help to treat different illnesses and injuries. For many patients, blood donors are their lifeline.</p>
+      </div>
+    </div>
+    <center>
+      <div class="container" style="padding-top: 20px;">
+        <div class="row">
+            <div class="col-sm">
+              <div class="card" style="width: 18rem; height: 360px">
+                  <img class="card-img-top" src="{% static 'images/about/media4.jpg' %}" alt="Card image cap">
+                  <div class="card-body">
+                    <h5 class="card-title">Blood donation</h5>
+                    <p class="card-text">Blood contains many life-saving components that can help to treat different illnesses and injuries. For many patients, blood donors are their lifeline.</p>
+                  </div>
+              </div>
+            </div>
+            <div class="col-sm">
+              <div class="card" style="width: 18rem; height: 360px">
+                  <img class="card-img-top" src="{% static 'images/about/media5.png' %}" alt="Card image cap">
+                  <div class="card-body">
+                    <h5 class="card-title">National Blood Programme</h5>
+                    <p class="card-text">Singapore’s National Blood Programme aims to ensure that all patients in Singapore have access to a safe and sufficient blood supply when needed.</p>
+                  </div>
+              </div>
+            </div>
+            <div class="col-sm">
+              <div class="card" style="width: 18rem; height: 360px">
+                  <img class="card-img-top" src="{% static 'images/about/media6.jpg' %}" alt="Card image cap">
+                  <div class="card-body">
+                    <h5 class="card-title">Transfusion medicine</h5>
+                    <p class="card-text">The Blood Services Group (BSG) provides advisory, patient management, training and research services in clinical transfusion medicine.</p>
+                  </div>
+              </div>
+            </div>
+        </div>
+      </div>
+    </center>
+</div>
+{% endblock %}

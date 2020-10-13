@@ -1,0 +1,115 @@
+
+*{
+    padding: 0;
+    margin: 0;
+}
+
+.container-fluid{
+    text-align: center;
+}
+
+.container-fluid h1{
+    font-weight: bolder;
+    color:red;
+    text-shadow: 2px 2px 2px grey;
+}
+
+.dropdown:hover .dropdown-menu{
+    display: block;
+}
+
+.dropdown .dropdown-menu .dropdown-item:hover{
+    background-color: burlywood;
+}
+
+.login{
+    text-decoration: none;
+    color: slategray;
+    font-weight: bold;
+}
+
+.login:hover{
+    text-decoration: none;
+    color: black;   
+}
+
+.login:hover .dropdown-menu{
+    color: black; 
+}
+
+footer{
+    width: 100%;
+    padding-left: 20px;
+    padding-top: 20px;
+    padding-right: 20px;
+    background-color: whitesmoke;
+    text-align: center;
+}
+
+footer h4{
+    font-weight: bolder;
+}
+
+.col-sm-3{
+    text-align: center;
+}
+
+.card{
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.card:hover{
+    box-shadow: 10px 10px 5px grey;
+}
+
+.card-image{
+    margin-top: 20px;
+    width: 100px;
+    height: 100px;
+}
+
+.tab-content{
+    background-color: white;
+    padding: 10px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom: 1px solid #e0e0de;
+    border-left: 1px solid #e0e0de;
+    border-right: 1px solid #e0e0de;
+}
+
+.vertical{
+    border-left: 1px solid #e0e0de; 
+}
+
+.info-tab .nav-link{
+    color: red;
+}
+
+table, th, td{
+    border: 1px solid black;
+}
+
+tbody td, th{
+    padding-left: 10px;
+}
+
+tbody th{
+    color: darkred;
+}
+
+#reg-btn{
+    background-color: red;
+    transition-duration: 0.4s;
+
+    border-width: 1px;
+    font-weight: bolder;
+    color: white;
+}
+
+#reg-btn:hover{
+    background-color: whitesmoke;
+    color: red;
+    box-shadow: 0 0 20px red;
+}

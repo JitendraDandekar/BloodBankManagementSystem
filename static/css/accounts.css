@@ -1,0 +1,97 @@
+
+.accounts-form{
+    height: auto;
+    text-align: center;
+    padding-top: 120px;
+    padding-bottom: 120px;
+}
+
+#login{
+    background-color: whitesmoke;
+    padding: 20px;
+    width: 400px;
+    height: auto;
+    border-radius: 5px;
+    margin: auto;
+}
+
+#login .btn{
+    width: 100px;
+}
+
+#registration{
+    background-color: whitesmoke;
+    padding: 20px;
+    width: 600px;
+    height: auto;
+    border-radius: 5px;
+    margin: auto;
+}
+
+@media screen and (max-width:800px){
+    #registration{
+        width: auto;
+    }
+}
+
+#registration .row{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.profile{
+    height: auto;
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.profile-details{
+    height: auto;
+    text-align: left;
+    background-color: whitesmoke;
+    padding: 20px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.profile-details h4{
+    padding-bottom: 10px;
+}
+
+.profile-details .row{
+    padding-bottom: 10px;
+}
+
+.profile-details .col-9 .row{
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.member-details{
+    padding-bottom: 20px;
+}
+
+.member-details .head div,.member-details .body div{
+    border-right: 1px solid grey;
+}
+
+.member-details .head div{
+    border-bottom: 1px solid grey;
+}
+
+.member-details .body .col-lg-4{
+    text-align: left;
+}
+
+.member-details .head div:last-child,.member-details .body div:last-child{
+    border-right: none;
+}
+
+.profile-details input{
+    width: 100%;
+}
+
+.members-input th{
+    text-align: center;
+}

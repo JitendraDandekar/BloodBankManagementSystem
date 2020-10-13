@@ -1,0 +1,84 @@
+{% extends 'index.html' %}
+{% block title %}Registration{% endblock %}
+{% block content %}
+<div class="accounts-form container">
+    <form id="registration" action="{% url 'register' %}" method="POST">
+        {% csrf_token %}
+        <div class="row">
+          <div class="col">
+            <input type="text" class="form-control" placeholder="Username" name="username" required>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <input type="text" class="form-control" placeholder="First name" name="first_name" required>
+          </div>
+          <div class="col">
+            <input type="text" class="form-control" placeholder="Last name" name="last_name" required>
+          </div>
+        </div>
+        <div class="row">
+            <div class="col">
+              <input type="email" class="form-control" placeholder="Email" name="email" required>
+            </div>
+            <div class="col">
+              <input type="phone" class="form-control" placeholder="Phone" name="phone" required>
+            </div>
+        </div>
+        <div class="row" style="padding-bottom: 0;">
+            <div class="col-2">
+                <label for="form-check-input">Gender:</label>
+            </div>
+            <div class="col-2">
+                <input class="form-check-input" type="radio" name="gender" id="exampleRadios1" value="Male" checked>
+                <label class="form-check-label" for="exampleRadios1">Male</label>
+            </div>
+            <div class="col-2">
+                <input class="form-check-input" type="radio" name="gender" id="exampleRadios2" value="Female">
+                <label class="form-check-label" for="exampleRadios2">Female</label>
+            </div>
+            <div class="col-3">
+                <input class="form-check-input" type="radio" name="gender" id="exampleRadios3" value="Transgender">
+                <label class="form-check-label" for="exampleRadios3">Transgender</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+              <input type="password" class="form-control" placeholder="Password" name="password1" required>
+            </div>
+            <div class="col">
+              <input type="password" class="form-control" placeholder="Confirm Password" name="password" required>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <input class="form-check-input" type="checkbox" name="terms_condins" id="invalidCheck" value="terms & conditions accepted!" required>
+                <label class="form-check-label" for="invalidCheck" ><a href="" data-toggle="modal" data-target="#exampleModal">Agree to terms and conditions</a></label>
+            </div>
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel"><strong>Terms & Conditions</strong></h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <p>Agreement between you (the reader) and Business Standard Private Limited.</p>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <button type="submit" class="btn btn-primary">Register</button>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}
