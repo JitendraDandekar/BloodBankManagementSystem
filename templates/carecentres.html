@@ -1,0 +1,20 @@
+{% extends 'index.html' %}
+{% block title %}Care Centres{% endblock %}
+{% block content %}
+<div class="availibility container-fluid">
+	<div class="row">
+		{% for centre in carecentres %}
+		<div class="col-sm-3">
+		    <div class="card text-right" style="width: 18rem;">
+		      <div class="card-body">
+		        <h5 class="card-title">{{ centre.clinic_name }}</h5>
+		        <p class="card-text">Dr. {{ centre.dr_name }}</p>
+		        <small class="card-text">At - {{ centre.address }}</small><br>
+		        <small class="card-text">Contact No.: {{ centre.contact }}</small><br>
+		      </div>
+		    </div>
+		</div>
+		{% endfor %}
+	</div>
+</div>
+{% endblock %}

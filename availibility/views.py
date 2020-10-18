@@ -19,3 +19,7 @@ def camp(request):
 	else:
 		camps = Camp.objects.all()
 		return render(request, 'camp.html', {'camps': camps, 'campform':camp_form})
+
+def care_centres(request):
+	carecentres = CareCentre.objects.all()
+	return render(request, 'carecentres.html', {'carecentres':carecentres})

@@ -23,3 +23,12 @@ class Camp(models.Model):
 
 	def __str__(self):
 		return self.organizer
+
+class CareCentre(models.Model):
+	clinic_name = models.CharField(max_length=100)
+	dr_name = models.CharField(max_length=100)
+	address = models.CharField(max_length=200)
+	contact = models.IntegerField()
+
+	def __str__(self):
+		return self.clinic_name

@@ -51,10 +51,13 @@
                     Services
                   </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                      <a class="dropdown-item" href="#">Care Centres</a>
+                      <a class="dropdown-item" href="{% url 'carecentres' %}">Care Centres</a>
                       <a class="dropdown-item" href="{% url 'camp' %}">Camp Schedule</a>
                       <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Donation Request</a>
+                      {% if user.is_authenticated %}
+                        <a class="dropdown-item" href="#">Blood Request</a>
+                        {% endif %}
+                        <a class="dropdown-item" href="{% url 'adminpanel' %}">Admin Panel</a>
                         <a class="dropdown-item" href="{% url 'availibility' %}">Blood Availability</a>
                     </div>
                 </li>
@@ -127,7 +130,7 @@
                         <div class="card-body">
                           <h5 class="card-title">NearBy Blood Banks</h5>
                           <p class="card-text">Get contact and navigation details of blood banks</p>
-                          <a href="#" class="btn btn-primary">Donate Now</a>
+                          <a href="{% url 'carecentres' %}" class="btn btn-primary">Donate Now</a>
                         </div>
                     </div>
                 </div>
@@ -302,7 +305,7 @@
                 </table>
             </div>
             <div style="padding: 20px;">
-                <button type="button" id="reg-btn" class="btn btn-danger btn-lg" onclick="window.location.href='{% url 'register' %}'">Register Now To Donate Blood</button>
+                <button type="button" id="reg-btn" class="btn btn-danger btn-lg" onclick="window.location.href='{% url 'register' %}'">Request For Blood</button>
             </div>
         </div>
         {% endblock %}

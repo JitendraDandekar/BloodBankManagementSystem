@@ -1,9 +1,11 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth.models import User, auth
 from django.contrib import messages
 from django.forms import modelformset_factory, inlineformset_factory
 from .forms import *
 from .models import *
+from availibility.forms import *
+from availibility.models import *
 
 # Create your views here.
 def login(request):
@@ -54,6 +56,11 @@ def register(request):
                 user.save()
                 messages.info(request, 'Profile Created !')
                 return redirect('login')
+        
+        else:
+            messages.info(request, 'Password Not Matched !')
+            return redirect('register')
+
 
     else:
         return render(request, 'registration.html')
@@ -81,3 +88,24 @@ def editProfile(request):
         profile_formset = ProfileFormSet(instance=request.user)
         member_formset = MemberFormSet(instance=profile)
         return render(request, 'editProfile.html', {'members':member_formset, 'profile': profile_formset})
+
+def admin_panel(request):
+    if request.user.is_staff:
+        users = User.objects.all()
+        camp_details = modelformset_factory(Camp, form=CampConfirmationForm, can_delete=True, extra=2)
+        blood_status = modelformset_factory(BloodAvailibility, form=BloodAvailibilityForm, can_delete=True, extra=2)
+        care_centres = modelformset_factory(CareCentre, form=CareCentreForm, can_delete=True, extra=2)
+        return render(request, 'adminpanel.html', {'bloodstatus':blood_status, 'campdetails':camp_details, 'carecentres':care_centres, 'users':users})
+    else:
+        return HttpResponse('<h1>Unauthorized Access !</h1>')
+
+def user_profile(request, pk):
+    user = User.objects.filter(id=pk)
+    u = User.objects.get(id=pk)
+    usersFormSet = modelformset_factory(User, form=AdminPanelUserForm, extra=0)
+    users = usersFormSet(queryset=user)
+    profileFormSet = inlineformset_factory(User, Profile, form=AdminPanelProfileForm, can_delete=True)
+    memberFormSet = inlineformset_factory(Profile, Member, form=AdminPanelMemberForm, can_delete=True)
+    profile = profileFormSet(instance=u)
+    members = memberFormSet(instance=u.profile)
+    return render(request, 'userProfile.html', {'users':users, 'profile':profile, 'members':members})

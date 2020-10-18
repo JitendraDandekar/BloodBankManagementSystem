@@ -1,0 +1,119 @@
+{% extends 'index.html' %}
+{% block title %}Admin Panel{% endblock %}
+{% block content %}
+<div class="admin-panel">
+	<div class="row">
+		<div class="col-2" id="menu">
+			<strong style="font-size: bolder">Admin Name</strong>
+			<div class="list-group list-group-flush" id="list-tab" role="tablist">
+		      <a id="list-blood-status-list" data-toggle="list" href="#list-blood-status" role="tab" aria-controls="blood-status">Blood Status</a>
+		      <a id="list-clinics-list" data-toggle="list" href="#list-clinics" role="tab" aria-controls="clinics">Clinics</a>
+		      <a id="list-camps-list" data-toggle="list" href="#list-camps" role="tab" aria-controls="camps">Camps</a>
+		      <a id="list-users-list" data-toggle="list" href="#list-users" role="tab" aria-controls="users">Users</a>
+		    </div>
+		</div>
+		<div class="col-10" id="details-view">
+			<div class="tab-content" id="nav-tabContent">
+		      <div class="tab-pane fade show active" id="list-blood-status" role="tabpanel" aria-labelledby="list-blood-status-list">
+		      	<center><h2>Blood Available</h2></center>
+		      	<form method="POST">
+				  	<div class="row">
+					{{ bloodstatus.management_form }}
+					{% for blood in bloodstatus %}
+					{{ blood.id }}
+					<div class="col" style="margin: 10px; background-color: tomato; border-radius: 5px; text-align: center; padding: 10px; color: white;">
+						Location : <br>
+						{{blood.location}}<br>
+						Blood A : <br>
+						{{blood.blood_a}}<br>
+						Blood B : <br>
+						{{blood.blood_b}}<br>
+						Blood AB : <br>
+						{{blood.blood_ab}}<br>
+						Blood O: <br>
+						{{blood.blood_o}}<br>
+						Plasma : <br>
+						{{blood.plasma}}<br>
+						Platelet : <br>
+						{{blood.platelet}}<br>
+						{% if bloodstatus.can_delete %}
+						<b>{{ blood.DELETE }}
+						{% endif %}
+						Delete</b>
+					</div>
+					{% endfor %}
+					</div>
+					<center><button class="btn btn-danger" type="submit">Submit</button></center>
+				</form>
+				</div>
+		      <div class="tab-pane fade" id="list-clinics" role="tabpanel" aria-labelledby="list-clinics-list">
+		      	<center><h2>Care Centres Details</h2></center>
+		      	<form method="POST">
+				  	<div class="row">
+					{{ carecentres.management_form }}
+					{% for centre in carecentres %}
+					{{ centre.id }}
+					<div class="col" style="margin: 10px; background-color: tomato; border-radius: 5px; text-align: center; padding: 10px; color: white;">
+						Clinic Name : <br>
+						{{centre.clinic_name}}<br>
+						Dr Name : <br>
+						{{centre.dr_name}}<br>
+						Address : <br>
+						{{centre.address}}<br>
+						Contact : <br>
+						{{centre.contact}}<br>
+						{% if carecentres.can_delete %}
+						<b>{{ centre.DELETE }}
+						{% endif %}
+						Delete</b>
+					</div>
+					{% endfor %}
+					</div>
+					<center><button class="btn btn-danger" type="submit">Submit</button></center>
+				</form>
+				</div>
+		      <div class="tab-pane fade" id="list-camps" role="tabpanel" aria-labelledby="list-camps-list">
+		      	<center><h2>Camps Details</h2></center>
+		      	<form method="POST">
+				  	<div class="row">
+					{{ campdetails.management_form }}
+					{% for camp in campdetails %}
+					{{ camp.id }}
+					<div class="col" style="margin: 10px; background-color: tomato; border-radius: 5px; text-align: center; padding: 10px; color: white;">
+						Title : <br>
+						{{camp.title}}<br>
+						Location : <br>
+						{{camp.location}}<br>
+						Organizer : <br>
+						{{camp.organizer}}<br>
+						Contact : <br>
+						{{camp.contact_no}}<br>
+						Date: <br>
+						{{camp.date}}<br>
+						Confirm : <br>
+						{{camp.confirm}}<br>
+						{% if campdetails.can_delete %}
+						<b>{{ camp.DELETE }}
+						{% endif %}
+						Delete</b>
+					</div>
+					{% endfor %}
+					</div>
+					<center><button class="btn btn-danger" type="submit">Submit</button></center>
+				</form>
+				</div>
+		      <div class="tab-pane fade" id="list-users" role="tabpanel" aria-labelledby="list-users-list">
+		      		<center><h2>Users</h2></center>
+				  	<div class="row">
+					{% for u in users %}
+					<div class="col" style="margin: 10px; background-color: tomato; border-radius: 5px; text-align: center; padding: 10px; color: white;">
+						<a href="{% url 'userprofile' u.id %}" style="color: white;">{{u.username}}</a>
+					</div>
+					{% endfor %}
+					</div>
+				</div>
+		    </div>
+		</div>
+	</div>
+</div>
+{% endblock %}

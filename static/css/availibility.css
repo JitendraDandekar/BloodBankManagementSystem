@@ -31,9 +31,31 @@ h3{
 
 .camp form{
 	margin-top: 40px; 
-	background-color: tomato;
-	color: white;
+	background-color: whitesmoke;
 	width: 50%;
 	padding: 20px;
 	border-radius: 5px;
+}
+
+.admin-panel{
+	padding: 0;
+	margin: 0;
+}
+
+.admin-panel #menu{
+	background-color: #ff9999;
+	padding-top: 10px;
+	padding-left: 30px;
+}
+
+.admin-panel #menu a{
+	padding-left: 10px;
+	color: black;
+	font-size: 15px
+}
+
+.admin-panel #details-view{
+	background-color: #b3d9ff;
+	padding-top: 30px;
+	padding-bottom: 20px;
 }

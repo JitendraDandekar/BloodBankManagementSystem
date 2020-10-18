@@ -1,0 +1,83 @@
+{% extends 'index.html' %}
+{% block title %}Admin Panel{% endblock %}
+{% block content %}
+<div class="admin-panel">
+	<form method="POST">
+	<div class="row">
+		{{users.management_form}}
+		{% for u in users %}
+		<div class="col" style="margin: 10px; background-color: tomato; border-radius: 5px; text-align: center; padding: 10px; color: white;">
+			<tbody>
+			<tr>	
+				<td>Username :</td>
+				<td>{{u.username}}</td>
+			</tr>
+			<tr>
+				<td>Firstname :</td>
+				<td>{{u.first_name}}</td>
+			</tr>
+			<tr>
+				<td>Lastname :</td>
+				<td>{{u.last_name}}</td>
+			</tr>
+			<tr>
+				<td>Email :</td>
+				<td>{{u.email}}</td>
+			</tr>
+			<tr>
+				<td>Staff :</td>
+				<td>{{u.is_staff}}</td>
+			</tr>
+			</tbody>
+		</div>
+		{% endfor %}
+	</div>
+	<div class="row">
+		<div class="col" style="margin: 10px; background-color: tomato; border-radius: 5px; text-align: left; padding: 10px; color: white;">
+			{{profile.management_form}}
+			{% for p in profile %}
+			<div class="row">
+			<div class="col">
+				<td>Phone :</td>
+				<td>{{p.phone}}</td>
+			</div>
+			<div class="col">
+				<td>Gender :</td>
+				<td>{{p.gender}}</td>
+			</div>
+			<div class="col">
+				<td>D.O.B :</td>
+				<td>{{p.dob}}</td>
+			</div>
+			</div>
+			<div class="row" style="margin-top: 10px;">
+			<div class="col">
+				<td>Perment Add :</td>
+				<td>{{p.per_add}}</td>
+			</div>
+			<div class="col">
+				<td>Temporary Add :</td>
+				<td>{{p.temp_add}}</td>
+			</div>
+			</div>
+			<div class="row" style="margin-top: 10px;">
+			<div class="col">
+				<td>Profile Picture :</td>
+				<td>{{p.profile_pic}}</td>
+			</div>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+	<div class="row">
+			{{members.management_form}}
+			{% for m in members %}
+			<div class="col" style="margin: 10px; background-color: tomato; border-radius: 5px; text-align: left; padding: 10px; color: white;">
+			{{m.as_p}}
+			</div>
+			{% endfor %}
+	</div>
+	<center><button class="btn btn-primary" type="submit" style="margin-bottom: 10px">Submit</button></center>
+	</form>
+</div>
+{% endblock %}

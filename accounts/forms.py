@@ -25,3 +25,18 @@ class MemberForm(forms.ModelForm):
         	'member_gender' : forms.Select(choices=GENDER),
         	'birthdate' : forms.DateInput(attrs={'type': 'date'}),
         }
+
+class AdminPanelUserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = '__all__'
+
+class AdminPanelProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = '__all__'
+
+class AdminPanelMemberForm(forms.ModelForm):
+    class Meta:
+        model = Member
+        fields = '__all__'
