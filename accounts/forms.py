@@ -26,17 +26,31 @@ class MemberForm(forms.ModelForm):
         	'birthdate' : forms.DateInput(attrs={'type': 'date'}),
         }
 
+CHOICE = (('True','Yes'),('False','No'))
 class AdminPanelUserForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = '__all__'
+        fields = ('first_name', 'last_name', 'username', 'email', 'is_staff')
+        widgets = {
+            'is_staff' : forms.Select(choices=CHOICE, attrs={'style':'width:50%'})
+        }
 
 class AdminPanelProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = '__all__'
+        widgets = {
+            'per_add' : forms.TextInput(attrs={'style':'width: 90%;'}),
+            'temp_add' : forms.TextInput(attrs={'style':'width: 90%;'}),
+            'dob' : forms.DateInput(attrs={'type':'date'}),
+            'gender' : forms.Select(choices=GENDER),
+        }
 
 class AdminPanelMemberForm(forms.ModelForm):
     class Meta:
         model = Member
         fields = '__all__'
+        widgets = {
+            'birthdate' : forms.DateInput(attrs={'type':'date'}),
+            'member_gender' : forms.Select(choices=GENDER)
+        }

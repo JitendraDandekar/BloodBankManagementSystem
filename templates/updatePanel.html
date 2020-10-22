@@ -1,0 +1,41 @@
+{% extends 'index.html' %}
+{% block title %}Admin Panel{% endblock %}
+{% block content %}
+<div class="container" style="padding: 20px">
+	<center>
+	<div class="col-4" style="margin: 10px; background-color: tomato; border-radius: 5px; text-align: left; padding: 10px; color: white;">
+		{% if bloodstatus %}
+	<form action="" method="POST">
+		 {% csrf_token %}
+		<center>{{bloodstatus.as_p}}
+		  <div style="margin-left: 20px">
+			<button class="btn btn-primary" type="submit">Submit</button>
+			<a class="btn btn-secondary" href="{% url 'adminpanel' %}">Back</a>
+		  </div>
+		</center>
+	</form>
+		{% endif %}
+		{% if campdetails %}
+	<form action="" method="POST" style="text-align: right;">
+		 {% csrf_token %}
+		{{campdetails.as_p}}
+		  <div style="margin-left: 20px">
+			<button class="btn btn-primary" type="submit">Submit</button>
+			<a class="btn btn-secondary" href="{% url 'adminpanel' %}">Back</a>
+		  </div>
+	</form>
+		{% endif %}
+		{% if carecentres %}
+	<form action="" method="POST" style="text-align: right;">
+		 {% csrf_token %}
+		{{carecentres.as_p}}
+		  <div style="margin-left: 20px">
+			<button class="btn btn-primary" type="submit">Submit</button>
+			<a class="btn btn-secondary" href="{% url 'adminpanel' %}">Back</a>
+		  </div>
+	</form>
+		{% endif %}
+	</div>
+	</center>
+</div>
+{% endblock %}

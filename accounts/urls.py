@@ -9,4 +9,6 @@ urlpatterns = [
     path('profile/edit/', editProfile, name='editprofile'),
     path('adminpanel/', admin_panel, name='adminpanel'),
     path('adminpanel/userprofile/<int:pk>/', user_profile, name='userprofile'),
+    path('adminpanel/edits/<str:field>/<int:pk>/', edit_panel, name='editpanel'),
+    path('adminpanel/delete/<str:field>/<int:pk>/', delete, name='delete'),
 ] 

@@ -1,10 +1,10 @@
 {% extends 'index.html' %}
 {% block title %}Admin Panel{% endblock %}
 {% block content %}
-<div class="admin-panel">
+<div class="admin-panel container-fluid">
 	<div class="row">
 		<div class="col-2" id="menu">
-			<strong style="font-size: bolder">Admin Name</strong>
+			<strong style="font-size: bolder">Admin Panel</strong>
 			<div class="list-group list-group-flush" id="list-tab" role="tablist">
 		      <a id="list-blood-status-list" data-toggle="list" href="#list-blood-status" role="tab" aria-controls="blood-status">Blood Status</a>
 		      <a id="list-clinics-list" data-toggle="list" href="#list-clinics" role="tab" aria-controls="clinics">Clinics</a>
@@ -13,106 +13,89 @@
 		    </div>
 		</div>
 		<div class="col-10" id="details-view">
-			<div class="tab-content" id="nav-tabContent">
+			{% block detailView %}
+			<div class="tab-content" id="nav-tabContent" style="background-color: #b3d9ff; border: none;">
 		      <div class="tab-pane fade show active" id="list-blood-status" role="tabpanel" aria-labelledby="list-blood-status-list">
 		      	<center><h2>Blood Available</h2></center>
-		      	<form method="POST">
-				  	<div class="row">
-					{{ bloodstatus.management_form }}
-					{% for blood in bloodstatus %}
-					{{ blood.id }}
-					<div class="col" style="margin: 10px; background-color: tomato; border-radius: 5px; text-align: center; padding: 10px; color: white;">
-						Location : <br>
-						{{blood.location}}<br>
-						Blood A : <br>
-						{{blood.blood_a}}<br>
-						Blood B : <br>
-						{{blood.blood_b}}<br>
-						Blood AB : <br>
-						{{blood.blood_ab}}<br>
-						Blood O: <br>
-						{{blood.blood_o}}<br>
-						Plasma : <br>
-						{{blood.plasma}}<br>
-						Platelet : <br>
-						{{blood.platelet}}<br>
-						{% if bloodstatus.can_delete %}
-						<b>{{ blood.DELETE }}
-						{% endif %}
-						Delete</b>
-					</div>
-					{% endfor %}
-					</div>
-					<center><button class="btn btn-danger" type="submit">Submit</button></center>
-				</form>
-				</div>
+		      	<table class="table table-hover" style="text-align: center; background-color: white;">
+		      		<thead>
+		      			<tr class="bg-danger">
+		      				<th scope="col">Location</th>
+		      				<th scope="col">Blood A</th>
+		      				<th scope="col">Blood B</th>
+		      				<th scope="col">Blood AB</th>
+		      				<th scope="col">Blood O</th>
+		      				<th scope="col">Plasma</th>
+		      				<th scope="col">Platelets</th>
+		      				<th scope="col">Action</th>
+		      			</tr>
+		      		</thead>
+		      		{% for blood in bloodstatus %}
+		      		<tbody>
+		      			<th scope="row">{{blood.location}}</th>
+		      			<td>{{blood.blood_a}} %</td>
+		      			<td>{{blood.blood_b}} %</td>
+		      			<td>{{blood.blood_ab}} %</td>
+		      			<td>{{blood.blood_o}} %</td>
+		      			<td>{{blood.plasma}} %</td>
+		      			<td>{{blood.platelet}} %</td>
+		      			<td><a href="{% url 'editpanel' 'bloods' blood.id %}" class="btn btn-primary">Edit</a>
+		      				<a class="btn btn-danger" title="Delete" onclick="return confirm('Do you want to delete {{blood}}?')" href="{% url 'delete' 'bloods' blood.id %}"><b>X</b></a></td>
+		      		</tbody>
+		      		{% endfor %}
+		      		<tfoot>
+		      			<td scope="row" colspan="8"><a href="" class="btn btn-secondary" style="width: 100px">Add</a></td>
+		      		</tfoot>
+		      	</table>
+			  </div>
 		      <div class="tab-pane fade" id="list-clinics" role="tabpanel" aria-labelledby="list-clinics-list">
-		      	<center><h2>Care Centres Details</h2></center>
-		      	<form method="POST">
-				  	<div class="row">
-					{{ carecentres.management_form }}
-					{% for centre in carecentres %}
-					{{ centre.id }}
-					<div class="col" style="margin: 10px; background-color: tomato; border-radius: 5px; text-align: center; padding: 10px; color: white;">
-						Clinic Name : <br>
-						{{centre.clinic_name}}<br>
-						Dr Name : <br>
-						{{centre.dr_name}}<br>
-						Address : <br>
-						{{centre.address}}<br>
-						Contact : <br>
-						{{centre.contact}}<br>
-						{% if carecentres.can_delete %}
-						<b>{{ centre.DELETE }}
-						{% endif %}
-						Delete</b>
-					</div>
+		      	<center><h2>Care Centres</h2></center>
+		      	<div class="row">
+				{% for centre in carecentres %}
+			      <div class="col-sm-3" style="margin: 10px; background-color: tomato; border-radius: 5px; text-align: center; padding: 10px; color: white;">
+					<b>{{centre.clinic_name}}</b><br>
+					<i>Dr. {{centre.dr_name}}</i><br>
+					 <address>At {{centre.address}}<br>
+					 	<small>Contact : {{centre.contact}}</small>
+					 </address>
+					 <a href="{% url 'editpanel' 'centre' centre.id %}" class="btn btn-primary" style="width: 80px">Edit</a>
+		      				<a class="btn btn-danger" onclick="return confirm('Do you want to delete {{centre}}?')" href="{% url 'delete' 'centre' centre.id %}">Delete</a>
+				  </div>
 					{% endfor %}
-					</div>
-					<center><button class="btn btn-danger" type="submit">Submit</button></center>
-				</form>
 				</div>
+				<a href="" class="btn btn-secondary" style="width: 100px">Add</a>
+			  </div>
 		      <div class="tab-pane fade" id="list-camps" role="tabpanel" aria-labelledby="list-camps-list">
 		      	<center><h2>Camps Details</h2></center>
-		      	<form method="POST">
-				  	<div class="row">
-					{{ campdetails.management_form }}
-					{% for camp in campdetails %}
-					{{ camp.id }}
-					<div class="col" style="margin: 10px; background-color: tomato; border-radius: 5px; text-align: center; padding: 10px; color: white;">
-						Title : <br>
-						{{camp.title}}<br>
-						Location : <br>
-						{{camp.location}}<br>
-						Organizer : <br>
-						{{camp.organizer}}<br>
-						Contact : <br>
-						{{camp.contact_no}}<br>
-						Date: <br>
-						{{camp.date}}<br>
-						Confirm : <br>
-						{{camp.confirm}}<br>
-						{% if campdetails.can_delete %}
-						<b>{{ camp.DELETE }}
-						{% endif %}
-						Delete</b>
-					</div>
-					{% endfor %}
-					</div>
-					<center><button class="btn btn-danger" type="submit">Submit</button></center>
-				</form>
-				</div>
+		      	<div class="row">
+		      		{% for camp in campdetails %}
+		      		<div class="col-sm-3" style="margin: 10px; background-color: tomato; border-radius: 5px; text-align: center; padding: 10px; color: white;">
+		      			<b>{{camp.title}}</b><br>
+		      			At {{camp.location}}<br>
+		      			By {{camp.organizer}}<br>
+		      			<small>Contact : {{camp.contact_no}}</small><br>
+		      			{{camp.date}}<br>
+		      			{% if camp.confirm %}
+		      			<a href="{% url 'editpanel' 'camps' camp.id %}" class="btn btn-primary">Approved</a>
+		      			{% else %}
+		      			<a href="{% url 'editpanel' 'camps' camp.id %}" class="btn btn-primary" title="Click For Approve">Unapprove</a>
+		      			{% endif %}
+		      			<a class="btn btn-danger" onclick="return confirm('Do you want to delete {{camp}}?')" href="{% url 'delete' 'camps' camp.id %}">Delete</a>
+		      		</div>
+		      		{% endfor %}
+		      	</div>
+		      	<a href="" class="btn btn-secondary" style="width: 100px">Add</a>
+			  </div>
 		      <div class="tab-pane fade" id="list-users" role="tabpanel" aria-labelledby="list-users-list">
 		      		<center><h2>Users</h2></center>
 				  	<div class="row">
 					{% for u in users %}
-					<div class="col" style="margin: 10px; background-color: tomato; border-radius: 5px; text-align: center; padding: 10px; color: white;">
-						<a href="{% url 'userprofile' u.id %}" style="color: white;">{{u.username}}</a>
-					</div>
+						<a class="btn btn-success" href="{% url 'userprofile' u.id %}" style="width: 200px; margin: 20px">{{u.username}}</a>
 					{% endfor %}
 					</div>
 				</div>
 		    </div>
+		    {% endblock %}
 		</div>
 	</div>
 </div>
