@@ -8,6 +8,17 @@ from .models import *
 from availibility.forms import *
 from availibility.models import *
 
+#Decorator
+def user_is_staff(func):
+    def staff_checker(request, *args, **kwargs):
+        if request.user.is_staff:
+            return func(request, *args, **kwargs)
+        else:
+            return HttpResponse('<h1>Unauthorized Access</h1>')
+    return staff_checker
+
+
+
 # Create your views here.
 def login(request):
     if request.method == 'POST':
@@ -69,12 +80,14 @@ def register(request):
         return render(request, 'registration.html')
 
 
+@login_required(login_url='login')
 def profile(request):
     profile = request.user.profile
     members = Member.objects.filter(profile=profile)
     return render(request, 'profile.html', {'members': members})
 
 
+@login_required(login_url='login')
 def editProfile(request):
     MemberFormSet = inlineformset_factory(Profile, Member, form=MemberForm, extra=3, max_num=10)
     ProfileFormSet = inlineformset_factory(User, Profile, form=ProfileForm, max_num=1)
@@ -96,27 +109,23 @@ def editProfile(request):
 
 
 @login_required(login_url='login')
+@user_is_staff
 def admin_panel(request):
-    if request.user.is_staff:
-        users = User.objects.all()
-        blood_status = BloodAvailibility.objects.all()
-        care_centres = CareCentre.objects.all()
-        camp_details = Camp.objects.all()
-        return render(request, 'adminpanel.html', {'bloodstatus':blood_status, 'carecentres':care_centres, 'campdetails':camp_details, 'users':users})
+    users = User.objects.all()
+    blood_status = BloodAvailibility.objects.all()
+    care_centres = CareCentre.objects.all()
+    camp_details = Camp.objects.all()
+    blood_request = BloodRequest.objects.raw('select id, user_id,count(*) as ucount from accounts_bloodrequest GROUP BY user_id')
+    print(blood_request)
+    return render(request, 'adminpanel.html', {'bloodstatus':blood_status, 'carecentres':care_centres,
+     'campdetails':camp_details, 'users':users, 'bloodrequest':blood_request})
 
-    else:
-        return HttpResponse('<h1>Unauthorized Access</h1>')
-
-def user_is_staff(func):
-    def staff_checker(request, *args, **kwargs):
-        if request.user.is_staff:
-            return func(request, *args, **kwargs)
-        else:
-            return HttpResponse('<h1>Unauthorized Access</h1>')
-    return staff_checker
+def request_panel(request, pk):
+    blood_request = BloodRequest.objects.filter(user_id=pk)
+    return render(request, 'request.html', {'bloodrequest':blood_request})
 
 
-#@user_is_staff
+@user_is_staff
 def user_profile(request, pk):
     user = User.objects.filter(id=pk)
     u = User.objects.get(id=pk)
@@ -139,6 +148,7 @@ def user_profile(request, pk):
         members = memberFormSet(instance=u.profile)
         return render(request, 'userProfile.html', {'users':users, 'profile':profile, 'members':members})
 
+@user_is_staff
 def edit_panel(request, field, pk):
     if field == 'bloods':
         b_id = BloodAvailibility.objects.filter(id=pk)
@@ -180,28 +190,7 @@ def edit_panel(request, field, pk):
             care_centre = careCentreFormSet(queryset=care_id)
             return render(request, 'updatePanel.html', {'carecentres':care_centre})
 
-
-
-#         camp_details = modelformset_factory(Camp, form=CampConfirmationForm, can_delete=True, extra=2)
-#         blood_status = modelformset_factory(BloodAvailibility, form=BloodAvailibilityForm, can_delete=True, extra=2)
-#         care_centres = modelformset_factory(CareCentre, form=CareCentreForm, can_delete=True, extra=2)
-#         if request.method == 'POST':
-#             #camp_details_req = camp_details(request.POST)
-#             blood_status_req = blood_status(request.POST)
-#             care_centres_req = care_centres(request.POST)
-#             print(care_centres_req)
-#             if care_centres_req.is_valid() and blood_status_req.is_valid():# and care_centres_req.is_valid():
-#                 care_centres_req.save()
-#                 blood_status_req.save()
-#                 #care_centres_req.save()
-#                 messages.info(request, 'Data Updated !')
-#                 return redirect('adminpanel')
-#         else:
-#             return render(request, 'adminpanel.html', {'bloodstatus':blood_status, 'campdetails':camp_details, 'carecentres':care_centres, 'users':users})
-#     else:
-#         return HttpResponse('<h1>Unauthorized Access !</h1>')
-
-
+@user_is_staff
 def delete(request, field, pk):
     if field == 'bloods':
         BloodAvailibility.objects.get(id=pk).delete()
@@ -217,3 +206,21 @@ def delete(request, field, pk):
         CareCentre.objects.get(id=pk).delete()
         messages.info(request, 'Deleted !')
         return redirect('adminpanel')
+
+def blood_request(request):
+    members = Member.objects.filter(profile=request.user.profile)
+    blood_request = BloodRequestForm()
+    if request.method == 'POST':
+        member = request.POST['members']
+        print(member)
+        blood_request = BloodRequestForm(request.POST)
+        if blood_request.is_valid():
+            print(blood_request)
+            br = blood_request.save(commit=False)
+            br.user = request.user
+            br.request_for = Member.objects.get(full_name=member)
+            br.save()
+            messages.info(request, 'Request proceeding !')
+            return redirect('bloodrequest')
+    else:
+        return render(request, 'bloodRequest.html', {'bloodrequest': blood_request, 'members':members})

@@ -1,0 +1,19 @@
+{% extends 'index.html' %}
+{% block title %}Admin Panel{% endblock %}
+{% block content %}
+<div>
+	<div class="row">
+		{% for br in bloodrequest %}
+		<div class="col-5" style="background-color: tomato; margin: 20px; padding: 10px; color: white;">
+			Patient Name : {{br.request_for}}<br>
+			Blood Type : {{br.blood_type}}<br>
+			Hospital : {{br.hospital_name}}<br>
+			Address : {{br.hospital_address}}<br>
+			Contact : {{br.hospital_contact_no}}<br>
+			Purpose : {{br.purpose}}<br>
+			Request Date : {{br.req_date}}
+		</div>
+		{% endfor %}
+	</div>
+</div>
+{% endblock %}

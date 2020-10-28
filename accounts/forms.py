@@ -54,3 +54,9 @@ class AdminPanelMemberForm(forms.ModelForm):
             'birthdate' : forms.DateInput(attrs={'type':'date'}),
             'member_gender' : forms.Select(choices=GENDER)
         }
+
+class BloodRequestForm(forms.ModelForm):
+    class Meta:
+        model = BloodRequest
+        fields = ['blood_type', 'hospital_name', 'hospital_address', 
+        'hospital_address', 'hospital_contact_no', 'purpose']

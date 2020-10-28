@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 # Create your models here.
 class Profile(models.Model):
@@ -24,4 +25,19 @@ class Member(models.Model):
     birthdate = models.DateField(null=True, blank=True)
 
     def __str__(self):
-        return self.profile.user.get_full_name()
+        return self.full_name
+
+class BloodRequest(models.Model):
+    BLOOD_TYPE = [('A+','A+'),('A-','A-'),('B+','B+'),('B-','B-'),('AB+','AB+'),
+    ('AB-','AB-'),('O+','O+'),('O-','O-'),('Plasma','Plasma'),('Platelet','Platelet')]
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    request_for = models.ForeignKey(Member, on_delete=models.SET_NULL, null=True)
+    blood_type = models.CharField(max_length=100, choices=BLOOD_TYPE, null=True, blank=True)
+    hospital_name = models.CharField(max_length=200, null=True, blank=True)
+    hospital_address = models.CharField(max_length=200, null=True, blank=True)
+    hospital_contact_no = models.CharField(max_length=200, null=True, blank=True)
+    purpose = models.TextField(null=True, blank=True)
+    req_date = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return self.user.username

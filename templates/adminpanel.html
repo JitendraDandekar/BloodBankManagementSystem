@@ -10,6 +10,7 @@
 		      <a id="list-clinics-list" data-toggle="list" href="#list-clinics" role="tab" aria-controls="clinics">Clinics</a>
 		      <a id="list-camps-list" data-toggle="list" href="#list-camps" role="tab" aria-controls="camps">Camps</a>
 		      <a id="list-users-list" data-toggle="list" href="#list-users" role="tab" aria-controls="users">Users</a>
+		      <a id="list-blood-request-list" data-toggle="list" href="#list-blood-request" role="tab" aria-controls="users">Blood Request</a>
 		    </div>
 		</div>
 		<div class="col-10" id="details-view">
@@ -52,7 +53,7 @@
 		      	<center><h2>Care Centres</h2></center>
 		      	<div class="row">
 				{% for centre in carecentres %}
-			      <div class="col-sm-3" style="margin: 10px; background-color: tomato; border-radius: 5px; text-align: center; padding: 10px; color: white;">
+			      <div class="col-3" style="margin: 10px; background-color: tomato; border-radius: 5px; text-align: center; padding: 10px; color: white;">
 					<b>{{centre.clinic_name}}</b><br>
 					<i>Dr. {{centre.dr_name}}</i><br>
 					 <address>At {{centre.address}}<br>
@@ -69,7 +70,7 @@
 		      	<center><h2>Camps Details</h2></center>
 		      	<div class="row">
 		      		{% for camp in campdetails %}
-		      		<div class="col-sm-3" style="margin: 10px; background-color: tomato; border-radius: 5px; text-align: center; padding: 10px; color: white;">
+		      		<div class="col-3" style="margin: 10px; background-color: tomato; border-radius: 5px; text-align: center; padding: 10px; color: white;">
 		      			<b>{{camp.title}}</b><br>
 		      			At {{camp.location}}<br>
 		      			By {{camp.organizer}}<br>
@@ -90,10 +91,22 @@
 		      		<center><h2>Users</h2></center>
 				  	<div class="row">
 					{% for u in users %}
+					  <div class="col-3">
 						<a class="btn btn-success" href="{% url 'userprofile' u.id %}" style="width: 200px; margin: 20px">{{u.username}}</a>
+					  </div>
 					{% endfor %}
 					</div>
-				</div>
+			  </div>
+			  <div class="tab-pane fade" id="list-blood-request" role="tabpanel" aria-labelledby="list-blood-request-list">
+			  	<center><h2>Blood Request</h2></center>
+			  	<div class="row">
+			  		{% for br in bloodrequest %}
+			  		<div class="col-3">
+			  			<a class="btn btn-success" href="{% url 'requestpanel' br.user_id %}" style="width: 200px; margin: 20px">{{br}}<br>Request : {{br.ucount}}</a>
+			  		</div>
+			  		{% endfor %}
+			  	</div>
+			  </div>
 		    </div>
 		    {% endblock %}
 		</div>

@@ -1,0 +1,25 @@
+{% extends 'index.html' %}
+{% block title %}Blood Request{% endblock %}
+{% block content %}
+<div class="container" style="padding: 20px">
+	<div class="card" style="background-color: #30abdb;">
+		<div class="card-header" style="width: 100%; text-align: center;font-weight: bolder;">
+			Blood Request Form
+		</div>
+		<div class="card-body">
+		  <form method="POST">
+			{% csrf_token %}
+			<div class="member" style="padding-bottom: 20px">
+				Requesting For: <select id="members" name="members" style="width: 200px">
+					{% for m in members %}
+					<option value="{{m}}">{{m}}</option>
+					{% endfor %}
+				</select>
+			</div>
+		  {{bloodrequest.as_p}}
+		  <center><button class="btn btn-warning" type="submit">Submit</button></center>
+		  </form>
+		</div>
+	</div>
+</div>
+{% endblock %}
