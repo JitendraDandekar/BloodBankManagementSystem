@@ -83,11 +83,11 @@
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td colspan="7"><center><button type="submit" class="btn btn-secondary" style="padding-left: 20px;padding-right: 20px;" onclick="addRow()">Save</button></center></td>  
+                            <td colspan="7"><center><button id="saveBtn" type="submit" class="btn btn-secondary" style="padding-left: 20px;padding-right: 20px;">Save</button></center></td>  
                         </tr>
                     </tfoot>
                 </table>                    
-                    <a href="{% url 'profile' %}" class="btn btn-primary" type="button" style="float: right;padding-left: 20px;padding-right: 20px;">Submit</a>
+                    <a href="{% url 'profile' %}" class="btn btn-primary" id="submitBtn" type="button" style="float: right;padding-left: 20px;padding-right: 20px;">Submit</a>
                 </div>
             </center>
           </form>

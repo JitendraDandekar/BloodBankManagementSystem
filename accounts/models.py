@@ -41,3 +41,12 @@ class BloodRequest(models.Model):
 
     def __str__(self):
         return self.user.username
+
+class Donation(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    hospital_name = models.CharField(max_length=100)
+    date = models.DateField()
+    cert = models.ImageField(upload_to='blood_certificates/')
+
+    def __str__(self):
+        return self.user.username

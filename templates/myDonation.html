@@ -1,0 +1,106 @@
+{% extends 'index.html' %}
+{% block title %}My Donations{% endblock %}
+{% block content %}
+<div class="container" style="padding: 20px">
+	<div class="row">
+		<div class="col">
+			<div class="card" style="background-color: tomato; color: white; text-align: center;">
+				<div class="card-header" style="width: 100%; font-family: bolder;"><strong>Donations</strong></div>
+				<div class="card-body" style="font-family: bold;"><strong>{{donationcount}}</strong></div>
+			</div>
+		</div>
+		<div class="col">
+			<div class="card" style="background-color: tomato; color: white; text-align: center;">
+				<div class="card-header" style="width: 100%; font-family: bolder;"><strong>Requests</strong></div>
+				<div class="card-body" style="font-family: bold;"><strong>{{reqcount}}</strong></div>
+			</div>
+		</div>
+	</div>
+	<div class="request row">
+		<table class="table table-sm" style="background-color: whitesmoke;">
+			<thead>
+				<tr>
+					<th colspan="6"><center>Blood Requests</center></th>
+				</tr>
+				<tr>
+					<th scope="col">Name</th>
+					<th scope="col">Hospital</th>
+					<th scope="col">Address</th>
+					<th scope="col">Contact</th>
+					<th scope="col">Purpose</th>
+					<th scope="col">Date</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for req in reqdetails %}
+				<tr>
+					<td scope="row">{{req.request_for}}</td>
+					<td>{{req.hospital_name}}</td>
+					<td>{{req.hospital_address}}</td>
+					<td>{{req.hospital_contact_no}}</td>
+					<td>{{req.purpose}}</td>
+					<td>{{req.req_date}}</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	<div class="donation row">
+		<table class="table table-sm" style="background-color: whitesmoke;">
+			<thead>
+				<tr>
+					<th colspan="3"><center>Blood Donations</center></th>
+				</tr>
+				<tr>
+					<th scope="col">Hospital</th>
+					<th scope="col">Date</th>
+					<th scope="col">Certificates</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for md in mydonations %}
+				<tr>
+					<td scope="row">{{md.hospital_name}}</td>
+					<td>{{md.date}}</td>
+					<td><a href="{{md.cert.url}}">{{md.cert}}</a></td>
+				</tr>
+				{% endfor %}
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="3">
+						<!-- Button trigger modal -->
+						<center><button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal">
+						  Add Donation
+						</button></center>
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+
+		<!-- Modal -->
+		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalLabel">Donation Form</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <form action="" method="POST" enctype="multipart/form-data">
+		      <div class="modal-body">
+		        	{% csrf_token %}
+		        	{{donationform.as_p}}
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		        <button type="Submit" class="btn btn-primary">Save</button>
+		      </div>
+		      </form>
+		    </div>
+		  </div>
+		</div>
+	</div>
+</div>
+{% endblock %}

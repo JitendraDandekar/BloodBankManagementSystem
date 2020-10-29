@@ -70,7 +70,7 @@
                     Hi, {{user.get_username}}
                   </a>
                   <div class="dropdown-menu  dropdown-menu-right" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">My Donations</a>
+                    <a class="dropdown-item" href="{% url 'mydonation' %}">My Donations</a>
                     <a class="dropdown-item" href="{% url 'profile' %}">View Profile</a>
                     <div class="dropdown-divider"></div>
                     <a href="{% url 'logout' %}"><center><button type="button" class="btn btn-primary btn-sm">Logout</button></center></a>

@@ -6,6 +6,7 @@ urlpatterns = [
     path('logout/', logout, name='logout'),
     path('registration/', register, name='register'),
     path('profile/', profile, name='profile'),
+    path('my-donations/', my_donation, name='mydonation'),
     path('profile/edit/', editProfile, name='editprofile'),
     path('adminpanel/', admin_panel, name='adminpanel'),
     path('adminpanel/userprofile/<int:pk>/', user_profile, name='userprofile'),

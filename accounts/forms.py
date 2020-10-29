@@ -60,3 +60,12 @@ class BloodRequestForm(forms.ModelForm):
         model = BloodRequest
         fields = ['blood_type', 'hospital_name', 'hospital_address', 
         'hospital_address', 'hospital_contact_no', 'purpose']
+
+class DonationForm(forms.ModelForm):
+    class Meta:
+        model = Donation
+        fields = '__all__'
+        exclude = ['user']
+        widgets = {
+            'date' : forms.DateInput(attrs={'type':'date'})
+        }
