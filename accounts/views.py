@@ -75,7 +75,6 @@ def register(request):
             messages.info(request, 'Password Not Matched !')
             return redirect('register')
 
-
     else:
         return render(request, 'registration.html')
 
@@ -86,6 +85,8 @@ def profile(request):
     members = Member.objects.filter(profile=profile)
     return render(request, 'profile.html', {'members': members})
 
+
+@login_required(login_url='login')
 def my_donation(request):
     donation_form = DonationForm()
     req_details = BloodRequest.objects.filter(user=request.user)
@@ -103,6 +104,7 @@ def my_donation(request):
     else:
         return render(request, 'myDonation.html',{'reqcount':req_count, 'reqdetails':req_details,
          'mydonations':my_donations, 'donationcount':donation_count, 'donationform':donation_form})
+
 
 @login_required(login_url='login')
 def editProfile(request):
@@ -128,14 +130,39 @@ def editProfile(request):
 @login_required(login_url='login')
 @user_is_staff
 def admin_panel(request):
-    users = User.objects.all()
+    users = User.objects.all().order_by('username').exclude(is_superuser=True)
     blood_status = BloodAvailibility.objects.all()
     care_centres = CareCentre.objects.all()
     camp_details = Camp.objects.all()
     blood_request = BloodRequest.objects.raw('select id, user_id,count(*) as ucount from accounts_bloodrequest GROUP BY user_id order by req_date desc')
-    return render(request, 'adminpanel.html', {'bloodstatus':blood_status, 'carecentres':care_centres,
-     'campdetails':camp_details, 'users':users, 'bloodrequest':blood_request})
+    
+    blood_request_form = BloodAvailibilityForm()
+    care_centres_form = CareCentreForm()
+    camp_form = CampConfirmationForm()
+    if request.method == 'POST':
+        blood_request_form = BloodAvailibilityForm(request.POST)
+        care_centres_form = CareCentreForm(request.POST)
+        camp_form = CampConfirmationForm(request.POST)
+        if blood_request_form.is_valid():
+            blood_request_form.save()
+            messages.info(request, 'Saved !')
+            return redirect('adminpanel')
+        elif care_centres_form.is_valid():
+            care_centres_form.save()
+            messages.info(request, 'Saved !')
+            return redirect('adminpanel')
+        elif camp_form.is_valid():
+            camp_form.save()
+            messages.info(request, 'Saved !')
+            return redirect('adminpanel')
 
+    else:
+        return render(request, 'adminpanel.html', {'bloodstatus':blood_status, 'carecentres':care_centres,
+            'campdetails':camp_details, 'users':users, 'bloodrequest':blood_request, 'bloodrequestform':blood_request_form, 
+            'carecentresform':care_centres_form, 'campform':camp_form})
+
+
+@user_is_staff
 def request_panel(request, pk):
     blood_request = BloodRequest.objects.filter(user_id=pk).order_by('-req_date')
     return render(request, 'request.html', {'bloodrequest':blood_request})
@@ -163,6 +190,7 @@ def user_profile(request, pk):
         profile = profileFormSet(instance=u)
         members = memberFormSet(instance=u.profile)
         return render(request, 'userProfile.html', {'users':users, 'profile':profile, 'members':members})
+
 
 @user_is_staff
 def edit_panel(request, field, pk):
@@ -206,6 +234,7 @@ def edit_panel(request, field, pk):
             care_centre = careCentreFormSet(queryset=care_id)
             return render(request, 'updatePanel.html', {'carecentres':care_centre})
 
+
 @user_is_staff
 def delete(request, field, pk):
     if field == 'bloods':
@@ -223,6 +252,8 @@ def delete(request, field, pk):
         messages.info(request, 'Deleted !')
         return redirect('adminpanel')
 
+
+@login_required(login_url='login')
 def blood_request(request):
     members = Member.objects.filter(profile=request.user.profile)
     blood_request = BloodRequestForm()

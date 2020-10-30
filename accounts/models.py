@@ -30,13 +30,13 @@ class Member(models.Model):
 class BloodRequest(models.Model):
     BLOOD_TYPE = [('A+','A+'),('A-','A-'),('B+','B+'),('B-','B-'),('AB+','AB+'),
     ('AB-','AB-'),('O+','O+'),('O-','O-'),('Plasma','Plasma'),('Platelet','Platelet')]
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    request_for = models.ForeignKey(Member, on_delete=models.SET_NULL, null=True)
-    blood_type = models.CharField(max_length=100, choices=BLOOD_TYPE, null=True, blank=True)
-    hospital_name = models.CharField(max_length=200, null=True, blank=True)
-    hospital_address = models.CharField(max_length=200, null=True, blank=True)
-    hospital_contact_no = models.CharField(max_length=200, null=True, blank=True)
-    purpose = models.TextField(null=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    request_for = models.ForeignKey(Member, on_delete=models.CASCADE)
+    blood_type = models.CharField(max_length=100, choices=BLOOD_TYPE)
+    hospital_name = models.CharField(max_length=200)
+    hospital_address = models.CharField(max_length=200)
+    hospital_contact_no = models.CharField(max_length=200)
+    purpose = models.TextField()
     req_date = models.DateTimeField(default=timezone.now)
 
     def __str__(self):

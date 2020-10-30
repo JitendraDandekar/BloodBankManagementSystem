@@ -45,9 +45,34 @@
 		      		</tbody>
 		      		{% endfor %}
 		      		<tfoot>
-		      			<td scope="row" colspan="8"><a href="" class="btn btn-secondary" style="width: 100px">Add</a></td>
+		      			<td scope="row" colspan="8"><a href="" class="btn btn-secondary" style="width: 100px" data-toggle="modal" data-target="#bloodStatusModalCenter">Add</a></td>
 		      		</tfoot>
 		      	</table>
+
+				<!-- Modal -->
+				<div class="modal fade" id="bloodStatusModalCenter" tabindex="-1" role="dialog" aria-labelledby="bloodStatusModalCenterTitle" aria-hidden="true">
+				  <div class="modal-dialog modal-dialog-centered" role="document">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <h5 class="modal-title" id="bloodStatusModalCenterTitle">Blood Availibility Form</h5>
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				          <span aria-hidden="true">&times;</span>
+				        </button>
+				      </div>
+				      <form action="" method="POST">
+				      <div class="modal-body"> 
+				      			{% csrf_token %}
+				        	{{bloodrequestform.as_p}}
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				        <button type="submit" class="btn btn-primary">Save</button>
+				      </div>
+				      </form>
+				    </div>
+				  </div>
+				</div>
+
 			  </div>
 		      <div class="tab-pane fade" id="list-clinics" role="tabpanel" aria-labelledby="list-clinics-list">
 		      	<center><h2>Care Centres</h2></center>
@@ -64,7 +89,32 @@
 				  </div>
 					{% endfor %}
 				</div>
-				<a href="" class="btn btn-secondary" style="width: 100px">Add</a>
+				<a href="" class="btn btn-secondary" style="width: 100px" data-toggle="modal" data-target="#careCentreModalCenter">Add</a>
+				
+				<!-- Modal -->
+				<div class="modal fade" id="careCentreModalCenter" tabindex="-1" role="dialog" aria-labelledby="careCentreModalCenterTitle" aria-hidden="true">
+				  <div class="modal-dialog modal-dialog-centered" role="document">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <h5 class="modal-title" id="careCentreModalCenterTitle">Care Centre Form</h5>
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				          <span aria-hidden="true">&times;</span>
+				        </button>
+				      </div>
+				      <form action="" method="POST">
+				      <div class="modal-body"> 
+				      			{% csrf_token %}
+				        	{{carecentresform.as_p}}
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				        <button type="submit" class="btn btn-primary">Save</button>
+				      </div>
+				      </form>
+				    </div>
+				  </div>
+				</div>
+
 			  </div>
 		      <div class="tab-pane fade" id="list-camps" role="tabpanel" aria-labelledby="list-camps-list">
 		      	<center><h2>Camps Details</h2></center>
@@ -85,7 +135,32 @@
 		      		</div>
 		      		{% endfor %}
 		      	</div>
-		      	<a href="" class="btn btn-secondary" style="width: 100px">Add</a>
+		      	<a href="" class="btn btn-secondary" style="width: 100px" data-toggle="modal" data-target="#campModalCenter">Add</a>
+
+		      	<!-- Modal -->
+				<div class="modal fade" id="campModalCenter" tabindex="-1" role="dialog" aria-labelledby="campModalCenterTitle" aria-hidden="true">
+				  <div class="modal-dialog modal-dialog-centered" role="document">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <h5 class="modal-title" id="campModalCenterTitle">Camp Details Form</h5>
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				          <span aria-hidden="true">&times;</span>
+				        </button>
+				      </div>
+				      <form action="" method="POST">
+				      <div class="modal-body"> 
+				      			{% csrf_token %}
+				        	{{campform.as_p}}
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				        <button type="submit" class="btn btn-primary">Save</button>
+				      </div>
+				      </form>
+				    </div>
+				  </div>
+				</div>
+
 			  </div>
 		      <div class="tab-pane fade" id="list-users" role="tabpanel" aria-labelledby="list-users-list">
 		      		<center><h2>Users</h2></center>
